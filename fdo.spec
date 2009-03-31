@@ -33,6 +33,7 @@ Patch15: fdo-3.4.0-install.patch
 Patch16: fdo-3.4.0-genericrdbms-install64.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 Buildrequires: cmake
+BuildRequires: mysql-devel
 BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: xalan-c-devel >= 1.10
