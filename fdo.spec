@@ -1,7 +1,15 @@
-%define libname	%mklibname fdo 3
 %define fdodir %_prefix/lib/fdo
 
 %define _disable_ld_as_needed 1
+
+%define libfdo	 %mklibname fdo 3.4
+%define libshp   %mklibname shpprovider 3.4
+%define librdbms %mklibname rdbmsprovider 3.4
+%define libsdf	 %mklibname sdfprovider 3.4
+%define libwfs	 %mklibname wfsprovider 3.4
+%define libwms	 %mklibname wmsprovider 3.4
+%define libpostgis %mklibname postgisprovider 3.4
+%define libgdal	%mklibname gdalprovider 3.4
 
 Name: fdo
 Version: 3.4.0
@@ -33,23 +41,23 @@ Patch15: fdo-3.4.0-install.patch
 Patch16: fdo-3.4.0-genericrdbms-install64.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 Buildrequires: cmake
-BuildRequires: mysql-devel
 BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: xalan-c-devel >= 1.10
-BuildRequires: gdal-devel
-BuildRequires: proj-devel
-BuildRequires: ogdi-devel
-BuildRequires: postgresql-devel
-BuildRequires: postgis-devel
-BuildRequires: openssl-devel
 BuildRequires: libcurl-devel
 BuildRequires: boost-devel
-BuildRequires: unixODBC-devel
 BuildRequires: mkcatdefs
 BuildRequires: python-devel
-BuildConflicts: cppunit-devel
+BuildRequires: openssl-devel
 BuildRequires: sed
+BuildConflicts: cppunit-devel
+Requires: %{libfdo} = %version
+Requires: %{libshp} = %version
+Requires: %{librdbms} = %version
+Requires: %{libsdf} = %version
+Requires: %{libwfs} = %version
+Requires: %{libpostgis} = %version
+Requires: %{libgdal} = %version
 
 %description
 Feature Data Objects (FDO) is an API for manipulating, defining, and analyzing
@@ -57,36 +65,249 @@ geospatial information regardless of where it is stored. FDO uses a
 provider-based model for supporting a variety of geospatial data sources, where
 each provider typically supports a particular data format or data store.
 
+%files
+
 #-------------------------------------------------------------------------------
 
-%package -n %libname
-Group: Library
-Summary: fdo library
-Provides: libfdo
+%package common
+Group: System/Libraries
+Summary: FDO common data
 
-%description -n %libname
-fdo library
+%description common
+FDO common data.
 
-%post -n %libname -p /sbin/ldconfig
-%postun -n %libname -p /sbin/ldconfig
-
-%files -n %libname
+%files common
 %defattr(-,root,root,-)
-%_libdir/*-3.4.0.so
-%_libdir/libsqlitefdo.so.*
 %_libdir/com
 %_libdir/providers.xml
-#_datadir/locale/en/*
-%_prefix/nls
+%dir %_prefix/nls
+%_prefix/nls/FDOMessage.cat
+%_prefix/nls/SmMessage.cat
+
+%package -n %libfdo
+Group: Library
+Summary: Fdo core library
+Requires: fdo-common = %version
+
+%description -n %libfdo
+Fdo core library.
+
+%files -n %libfdo
+%defattr(-,root,root,-)
+%_libdir/libExpressionEngine-%version.so
+%_libdir/libFDO-%version.so
+%_libdir/libFdoOws-%version.so
+%_libdir/libSchemaMgr*-%version.so
+%_libdir/libsqlitefdo.so.*
+
+#-------------------------------------------------------------------------------
+
+%package shp-common
+Group: System/Libraries
+Summary: Fdo shp library provider common data
+
+%description shp-common
+FDO shp library provider common data.
+
+%files shp-common
+%defattr(-,root,root,-)
+%_prefix/nls/ShpMessage.cat
+
+%package -n %libshp
+Group: System/Libraries
+Summary: Fdo shp library provider
+Provides: fdo-shp = %version
+Requires: fdo-shp-common = %version
+Requires: %libfdo = %version
+
+%description -n %libshp
+Fdo shp library provider.
+
+%files -n %libshp
+%defattr(-,root,root,-)
+%_libdir/libSHP*-%version.so
+
+#-------------------------------------------------------------------------------
+
+%package rdbms-common
+Group: System/Libraries
+Summary: Fdo rdbms library provider common data
+
+%description rdbms-common
+FDO rdbms library provider common data.
+
+%files rdbms-common
+%defattr(-,root,root,-)
+%_prefix/nls/fdordbmsmsg.cat
+
+%package -n %librdbms
+Group: System/Libraries
+Summary: Fdo rdbms library provider
+Provides: fdo-rdbms = %version
+Provides: fdo-odbc = %version
+Provides: fdo-mysql = %version
+BuildRequires: mysql-devel
+BuildRequires: unixODBC-devel
+Requires: fdo-rdbms-common = %version
+Requires: %libfdo = %version
+
+%description -n %librdbms
+Fdo rdbms library provider.
+
+%files -n %librdbms
+%defattr(-,root,root,-)
+%_libdir/libFdoMySQL-%version.so
+%_libdir/libFdoODBC-%version.so
+
+#-------------------------------------------------------------------------------
+
+%package sdf-common
+Group: System/Libraries
+Summary: Fdo sdf library provider common data
+
+%description sdf-common
+Fdo sdf library provider common data.
+
+%files sdf-common
+%defattr(-,root,root,-)
+%_prefix/nls/SDFMessage.cat
+
+%package -n %libsdf
+Group: System/Libraries
+Summary: Fdo sdf library provider
+Provides: fdo-sdf = %version
+Requires: fdo-sdf-common = %version
+Requires: %libfdo = %version
+
+%description -n %libsdf
+Fdo sdf library provider.
+
+%files -n %libsdf
+%defattr(-,root,root,-)
+%_libdir/libSDF*-%version.so
+
+#-------------------------------------------------------------------------------
+
+%package wfs-common
+Group: System/Libraries
+Summary: Fdo wfs library provider common data
+
+%description wfs-common
+Fdo wfs library provider common data.
+
+%files wfs-common
+%defattr(-,root,root,-)
+%_prefix/nls/WFSMessage.cat
+
+%package -n %libwfs
+Group: System/Libraries
+Summary: Fdo wfs library provider
+Provides: fdo-wfs = %version
+Requires: fdo-wfs-common = %version
+Requires: %libfdo = %version
+
+%description -n %libwfs
+Fdo wfs library provider.
+
+%files -n %libwfs
+%defattr(-,root,root,-)
+%_libdir/libWFS*-%version.so
+
+#-------------------------------------------------------------------------------
+
+%package wms-common
+Group: System/Libraries
+Summary: Fdo wms library provider common data
+
+%description wms-common
+Fdo wms library provider common data.
+
+%files wms-common
+%defattr(-,root,root,-)
+%_prefix/nls/FdoWmsMessage.cat
+
+%package -n %libwms
+Group: System/Libraries
+Summary: Fdo wms library provider
+Provides: fdo-wms = %version
+Requires: fdo-wms-common = %version
+Requires: %libfdo = %version
+
+%description -n %libwms
+Fdo wms library provider.
+
+%files -n %libwms
+%defattr(-,root,root,-)
+%_libdir/libWMS*-%version.so
+
+#-------------------------------------------------------------------------------
+
+%package postgis-common
+Group: System/Libraries
+Summary: FDO postgis library provider common data
+
+%description postgis-common
+FDO SHP library provider common data.
+
+%files postgis-common
+%defattr(-,root,root,-)
+%_prefix/nls/PostGisMessage.cat
+
+%package -n %libpostgis
+Group: System/Libraries
+Summary: Fdo postgis library provider
+Provides: fdo-postgis = %version
+BuildRequires: postgresql-devel
+BuildRequires: postgis-devel
+Requires: fdo-postgis-common = %version
+Requires: %libfdo = %version
+
+%description -n %libpostgis
+Fdo postgis library provider.
+
+%files -n %libpostgis
+%defattr(-,root,root,-)
+%_libdir/libPostGIS*-%version.so
+
+#-------------------------------------------------------------------------------
+
+%package gdal-common
+Group: System/Libraries
+Summary: FDO gdal library provider common data
+
+%description gdal-common
+FDO SHP library provider common data.
+
+%files gdal-common
+%defattr(-,root,root,-)
+%_prefix/nls/GRFPMessage.cat
+
+%package -n %libgdal
+Group: System/Libraries
+Summary: Fdo gdal library provider
+Provides: fdo-gdal = %version
+BuildRequires: gdal-devel
+BuildRequires: proj-devel
+BuildRequires: ogdi-devel
+Requires: fdo-gdal-common = %version
+Requires: %libfdo = %version
+
+%description -n %libgdal
+Fdo gdal library provider.
+
+%files -n %libgdal
+%defattr(-,root,root,-)
+%_libdir/libGRFP*-%version.so
+%_libdir/libOGR*-%version.so
 
 #-------------------------------------------------------------------------------
 
 %package doc
-Group: Documentation
+Group: Books/Computer books
 Summary: FDO Docs
 
 %description doc
-FDO Docs
+FDO Docs.
 
 %files doc
 %defattr(-,root,root,-)
@@ -97,10 +318,17 @@ FDO Docs
 %define libdev	%mklibname -d fdo
 
 %package -n %libdev
-Group: Development
+Group: Development/C++
 Summary: fdo library devel 
 Provides: fdo-devel
 Obsoletes: %{_lib}fdo3-devel
+Requires: %{libfdo} = %version
+Requires: %{libshp} = %version
+Requires: %{librdbms} = %version
+Requires: %{libsdf} = %version
+Requires: %{libwfs} = %version
+Requires: %{libpostgis} = %version
+Requires: %{libgdal} = %version
 
 %description -n %libdev
 fdo library devel
