@@ -85,7 +85,7 @@ FDO common data.
 %_prefix/nls/SmMessage.cat
 
 %package -n %libfdo
-Group: Library
+Group: System/Libraries
 Summary: Fdo core library
 Requires: fdo-common = %version
 
