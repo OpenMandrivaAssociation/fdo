@@ -13,7 +13,7 @@
 
 Name: fdo
 Version: 3.4.0
-Release: %mkrel 0.rc3.1
+Release: %mkrel 0.rc3.2
 Epoch: 1
 License: LGPL
 Summary: Feature Data Objects (FDO)
@@ -51,13 +51,14 @@ BuildRequires: python-devel
 BuildRequires: openssl-devel
 BuildRequires: sed
 BuildConflicts: cppunit-devel
-Requires: %{libfdo} = %version
-Requires: %{libshp} = %version
-Requires: %{librdbms} = %version
-Requires: %{libsdf} = %version
-Requires: %{libwfs} = %version
-Requires: %{libpostgis} = %version
-Requires: %{libgdal} = %version
+Requires: %{libfdo} = %epoch:%version
+Requires: %{libshp} = %epoch:%version
+Requires: %{librdbms} = %epoch:%version
+Requires: %{libsdf} = %epoch:%version
+Requires: %{libwfs} = %epoch:%version
+Requires: %{libwms} = %epoch:%version
+Requires: %{libpostgis} = %epoch:%version
+Requires: %{libgdal} = %epoch:%version
 
 %description
 Feature Data Objects (FDO) is an API for manipulating, defining, and analyzing
@@ -87,7 +88,7 @@ FDO common data.
 %package -n %libfdo
 Group: System/Libraries
 Summary: Fdo core library
-Requires: fdo-common = %version
+Requires: fdo-common = %epoch:%version
 
 %description -n %libfdo
 Fdo core library.
@@ -116,9 +117,9 @@ FDO shp library provider common data.
 %package -n %libshp
 Group: System/Libraries
 Summary: Fdo shp library provider
-Provides: fdo-shp = %version
-Requires: fdo-shp-common = %version
-Requires: %libfdo = %version
+Provides: fdo-shp = %epoch:%version
+Requires: fdo-shp-common = %epoch:%version
+Requires: %libfdo = %epoch:%version
 
 %description -n %libshp
 Fdo shp library provider.
@@ -143,13 +144,13 @@ FDO rdbms library provider common data.
 %package -n %librdbms
 Group: System/Libraries
 Summary: Fdo rdbms library provider
-Provides: fdo-rdbms = %version
-Provides: fdo-odbc = %version
-Provides: fdo-mysql = %version
+Provides: fdo-rdbms = %epoch:%version
+Provides: fdo-odbc = %epoch:%version
+Provides: fdo-mysql = %epoch:%version
 BuildRequires: mysql-devel
 BuildRequires: unixODBC-devel
-Requires: fdo-rdbms-common = %version
-Requires: %libfdo = %version
+Requires: fdo-rdbms-common = %epoch:%version
+Requires: %libfdo = %epoch:%version
 
 %description -n %librdbms
 Fdo rdbms library provider.
@@ -175,9 +176,9 @@ Fdo sdf library provider common data.
 %package -n %libsdf
 Group: System/Libraries
 Summary: Fdo sdf library provider
-Provides: fdo-sdf = %version
-Requires: fdo-sdf-common = %version
-Requires: %libfdo = %version
+Provides: fdo-sdf = %epoch:%version
+Requires: fdo-sdf-common = %epoch:%version
+Requires: %libfdo = %epoch:%version
 
 %description -n %libsdf
 Fdo sdf library provider.
@@ -202,9 +203,9 @@ Fdo wfs library provider common data.
 %package -n %libwfs
 Group: System/Libraries
 Summary: Fdo wfs library provider
-Provides: fdo-wfs = %version
-Requires: fdo-wfs-common = %version
-Requires: %libfdo = %version
+Provides: fdo-wfs = %epoch:%version
+Requires: fdo-wfs-common = %epoch:%version
+Requires: %libfdo = %epoch:%version
 
 %description -n %libwfs
 Fdo wfs library provider.
@@ -229,9 +230,9 @@ Fdo wms library provider common data.
 %package -n %libwms
 Group: System/Libraries
 Summary: Fdo wms library provider
-Provides: fdo-wms = %version
-Requires: fdo-wms-common = %version
-Requires: %libfdo = %version
+Provides: fdo-wms = %epoch:%version
+Requires: fdo-wms-common = %epoch:%version
+Requires: %libfdo = %epoch:%version
 
 %description -n %libwms
 Fdo wms library provider.
@@ -256,11 +257,11 @@ FDO SHP library provider common data.
 %package -n %libpostgis
 Group: System/Libraries
 Summary: Fdo postgis library provider
-Provides: fdo-postgis = %version
+Provides: fdo-postgis = %epoch:%version
 BuildRequires: postgresql-devel
 BuildRequires: postgis-devel
-Requires: fdo-postgis-common = %version
-Requires: %libfdo = %version
+Requires: fdo-postgis-common = %epoch:%version
+Requires: %libfdo = %epoch:%version
 
 %description -n %libpostgis
 Fdo postgis library provider.
@@ -285,12 +286,12 @@ FDO SHP library provider common data.
 %package -n %libgdal
 Group: System/Libraries
 Summary: Fdo gdal library provider
-Provides: fdo-gdal = %version
+Provides: fdo-gdal = %epoch:%version
 BuildRequires: gdal-devel
 BuildRequires: proj-devel
 BuildRequires: ogdi-devel
-Requires: fdo-gdal-common = %version
-Requires: %libfdo = %version
+Requires: fdo-gdal-common = %epoch:%version
+Requires: %libfdo = %epoch:%version
 
 %description -n %libgdal
 Fdo gdal library provider.
@@ -322,13 +323,14 @@ Group: Development/C++
 Summary: fdo library devel 
 Provides: fdo-devel
 Obsoletes: %{_lib}fdo3-devel
-Requires: %{libfdo} = %version
-Requires: %{libshp} = %version
-Requires: %{librdbms} = %version
-Requires: %{libsdf} = %version
-Requires: %{libwfs} = %version
-Requires: %{libpostgis} = %version
-Requires: %{libgdal} = %version
+Requires: %{libfdo} = %epoch:%version
+Requires: %{libshp} = %epoch:%version
+Requires: %{librdbms} = %epoch:%version
+Requires: %{libsdf} = %epoch:%version
+Requires: %{libwfs} = %epoch:%version
+Requires: %{libwms} = %epoch:%version
+Requires: %{libpostgis} = %epoch:%version
+Requires: %{libgdal} = %epoch:%version
 
 %description -n %libdev
 fdo library devel
