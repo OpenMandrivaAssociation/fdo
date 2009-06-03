@@ -13,22 +13,22 @@
 
 Name: fdo
 Version: 3.4.0
-Release: %mkrel 0.rc3.2
+Release: %mkrel 1
 Epoch: 1
 License: LGPL
 Summary: Feature Data Objects (FDO)
 Group: Sciences/Geosciences
 URL: https://fdo.osgeo.org
-Source0: fdo-3.4.0.tar.gz
-Source1: fdogdal-3.4.0.tar.gz
-Source2: fdoogr-3.4.0.tar.gz
-Source3: fdopostgis-3.4.0.tar.gz
-Source4: fdordbms-3.4.0.tar.gz
-Source5: fdosdf-3.4.0.tar.gz
-Source6: fdoshp-3.4.0.tar.gz
-Source7: fdowfs-3.4.0.tar.gz
-Source8: fdowms-3.4.0.tar.gz
-Source9: fdosqlite-3.4.0.tar.gz
+Source0: http://download.osgeo.org/fdo/%{version}/release/source/fdo-%{version}.tar.gz
+Source1: http://download.osgeo.org/fdo/%{version}/release/source/fdogdal-%{version}.tar.gz
+Source2: http://download.osgeo.org/fdo/%{version}/release/source/fdoogr-%{version}.tar.gz
+Source3: http://download.osgeo.org/fdo/%{version}/release/source/fdopostgis-%{version}.tar.gz
+Source4: http://download.osgeo.org/fdo/%{version}/release/source/fdordbms-%{version}.tar.gz
+Source5: http://download.osgeo.org/fdo/%{version}/release/source/fdosdf-%{version}.tar.gz
+Source6: http://download.osgeo.org/fdo/%{version}/release/source/fdoshp-%{version}.tar.gz
+Source7: http://download.osgeo.org/fdo/%{version}/release/source/fdowfs-%{version}.tar.gz
+Source8: http://download.osgeo.org/fdo/%{version}/release/source/fdowms-%{version}.tar.gz
+Source9: http://download.osgeo.org/fdo/%{version}/release/source/fdosqlite-%{version}.tar.gz
 Source10: CMakeLists.txt
 Patch0: fdo-3.4.0-missing-cstd-includes.patch
 Patch2: fdo-3.3.1-constify-chars.patch
@@ -37,8 +37,9 @@ Patch10: fdo-3.4.0-ogr-thirdparty.patch
 Patch12: fdo-3.4.0-postgis-thirdparty.patch
 Patch13: fdo-3.4.0-sdf-thirdparty.patch
 Patch14: fdo-3.4.0-sdf-precision.patch
-Patch15: fdo-3.4.0-install.patch
 Patch16: fdo-3.4.0-genericrdbms-install64.patch
+Patch17: fdo-3.4.0-doc-install.patch
+Patch18: fdo-3.4.0-gcc44.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 Buildrequires: cmake
 BuildRequires: autoconf
@@ -361,8 +362,9 @@ cd OpenSource_FDO
 %patch12 -p1 -b .postgis_thirdparty
 %patch13 -p1 -b .sdf_thirdparty
 %patch14 -p1 -b .sdf_precision
-%patch15 -p1 -b .install
 %patch16 -p1 -b .install
+%patch17 -p1 -b .docinstall
+%patch18 -p1 -b .gcc44
 
 %build
 FDO=%_builddir/%name-%version/OpenSource_FDO/Fdo
