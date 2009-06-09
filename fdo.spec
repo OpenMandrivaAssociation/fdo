@@ -13,7 +13,7 @@
 
 Name: fdo
 Version: 3.4.0
-Release: %mkrel 1
+Release: %mkrel 2
 Epoch: 1
 License: LGPL
 Summary: Feature Data Objects (FDO)
@@ -393,8 +393,7 @@ popd
 cd OpenSource_FDO
 
 # FDO Core
-aclocal && libtoolize --force && automake --add-missing --copy && autoconf
-
+autoreconf
 %configure2_5x --enable-debug
 
 %make
@@ -409,7 +408,7 @@ done
 # Providers
 for name in Providers/*; do
     pushd $name
-        aclocal && libtoolize --force && automake --add-missing --copy && autoconf
+	autoreconf
         %configure2_5x --enable-debug
         %make
     popd
@@ -442,3 +441,7 @@ done
 # Fix providers file 
 sed -i "s,/usr/local/fdo-3.4.0/lib,%_libdir,g" %buildroot/%_libdir/providers.xml
 sed -i "s,.so</LibraryPath>,-3.4.0.so</LibraryPath>,g" %buildroot/%_libdir/providers.xml
+
+# nls not exists in Linux, need move to locale
+mv %buildroot/%_prefix/nls %buildroot/%_datadir
+
