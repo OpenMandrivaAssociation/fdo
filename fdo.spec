@@ -82,9 +82,9 @@ FDO common data.
 %defattr(-,root,root,-)
 %_libdir/com
 %_libdir/providers.xml
-%dir %_prefix/nls
-%_prefix/nls/FDOMessage.cat
-%_prefix/nls/SmMessage.cat
+%dir %_datadir/locale/en
+%_datadir/locale/en/FDOMessage.cat
+%_datadir/locale/en/SmMessage.cat
 
 %package -n %libfdo
 Group: System/Libraries
@@ -113,7 +113,7 @@ FDO shp library provider common data.
 
 %files shp-common
 %defattr(-,root,root,-)
-%_prefix/nls/ShpMessage.cat
+%_datadir/locale/en/ShpMessage.cat
 
 %package -n %libshp
 Group: System/Libraries
@@ -140,7 +140,7 @@ FDO rdbms library provider common data.
 
 %files rdbms-common
 %defattr(-,root,root,-)
-%_prefix/nls/fdordbmsmsg.cat
+%_datadir/locale/en/fdordbmsmsg.cat
 
 %package -n %librdbms
 Group: System/Libraries
@@ -172,7 +172,7 @@ Fdo sdf library provider common data.
 
 %files sdf-common
 %defattr(-,root,root,-)
-%_prefix/nls/SDFMessage.cat
+%_datadir/locale/en/SDFMessage.cat
 
 %package -n %libsdf
 Group: System/Libraries
@@ -199,7 +199,7 @@ Fdo wfs library provider common data.
 
 %files wfs-common
 %defattr(-,root,root,-)
-%_prefix/nls/WFSMessage.cat
+%_datadir/locale/en/WFSMessage.cat
 
 %package -n %libwfs
 Group: System/Libraries
@@ -226,7 +226,7 @@ Fdo wms library provider common data.
 
 %files wms-common
 %defattr(-,root,root,-)
-%_prefix/nls/FdoWmsMessage.cat
+%_datadir/locale/en/FdoWmsMessage.cat
 
 %package -n %libwms
 Group: System/Libraries
@@ -253,7 +253,7 @@ FDO SHP library provider common data.
 
 %files postgis-common
 %defattr(-,root,root,-)
-%_prefix/nls/PostGisMessage.cat
+%_datadir/locale/en/PostGisMessage.cat
 
 %package -n %libpostgis
 Group: System/Libraries
@@ -282,7 +282,7 @@ FDO SHP library provider common data.
 
 %files gdal-common
 %defattr(-,root,root,-)
-%_prefix/nls/GRFPMessage.cat
+%_datadir/locale/en/GRFPMessage.cat
 
 %package -n %libgdal
 Group: System/Libraries
@@ -313,7 +313,7 @@ FDO Docs.
 
 %files doc
 %defattr(-,root,root,-)
-%_docdir/fdo
+%_prefix/docs
 
 #-------------------------------------------------------------------------------
 
@@ -393,9 +393,8 @@ popd
 cd OpenSource_FDO
 
 # FDO Core
-autoreconf
-%configure2_5x --enable-debug
-
+aclocal --force && libtoolize -c -f && automake -a -f && autoconf
+%configure2_5x
 %make
 
 # Fdo and Utilities
@@ -408,8 +407,8 @@ done
 # Providers
 for name in Providers/*; do
     pushd $name
-	autoreconf
-        %configure2_5x --enable-debug
+	aclocal --force && libtoolize -c -f && automake -a -f && autoconf
+        %configure2_5x
         %make
     popd
 done
@@ -443,5 +442,6 @@ sed -i "s,/usr/local/fdo-3.4.0/lib,%_libdir,g" %buildroot/%_libdir/providers.xml
 sed -i "s,.so</LibraryPath>,-3.4.0.so</LibraryPath>,g" %buildroot/%_libdir/providers.xml
 
 # nls not exists in Linux, need move to locale
-mv %buildroot/%_prefix/nls %buildroot/%_datadir
+mkdir -p %buildroot/%_datadir/locale/
+mv %buildroot/%_prefix/nls %buildroot/%_datadir/locale/en
 
