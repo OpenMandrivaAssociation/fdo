@@ -1,6 +1,6 @@
-%define fdodir %_prefix/lib/fdo
+%bcond_with debug
 
-%define _disable_ld_as_needed 1
+%define fdodir %_prefix/lib/fdo
 
 %define libfdo	 %mklibname fdo 3.4
 %define libshp   %mklibname shpprovider 3.4
@@ -30,7 +30,9 @@ Source7: http://download.osgeo.org/fdo/%{version}/release/source/fdowfs-%{versio
 Source8: http://download.osgeo.org/fdo/%{version}/release/source/fdowms-%{version}.tar.gz
 Source9: http://download.osgeo.org/fdo/%{version}/release/source/fdosqlite-%{version}.tar.gz
 Source10: CMakeLists.txt
+Source11: libsqlitefdo.la
 Patch0: fdo-3.4.0-missing-cstd-includes.patch
+Patch1: fdo-3.4.0-const-registry.patch
 Patch2: fdo-3.3.1-constify-chars.patch
 Patch6: fdo-3.4.0-ows-shared-lib-link.patch
 Patch10: fdo-3.4.0-ogr-thirdparty.patch
@@ -100,7 +102,6 @@ Fdo core library.
 %_libdir/libFDO-%version.so
 %_libdir/libFdoOws-%version.so
 %_libdir/libSchemaMgr*-%version.so
-%_libdir/libsqlitefdo.so.*
 
 #-------------------------------------------------------------------------------
 
@@ -356,6 +357,7 @@ done
 
 cd OpenSource_FDO
 %patch0 -p1 -b .cstd
+%patch1 -p1 -b .regist
 %patch2 -p1 -b .const
 %patch6 -p1 -b .ows
 %patch10 -p1 -b .ogr_thirdparty
@@ -386,15 +388,20 @@ popd
 
 pushd $FDOTHIRDPARTY/Sqlite3.3.13/Src
     cp %SOURCE10 .
-    %cmake
-    %make
+    cp %SOURCE11 .
+    %cmake 
+    %make VERBOSE=1
 popd
 
 cd OpenSource_FDO
 
 # FDO Core
 aclocal --force && libtoolize -c -f && automake -a -f && autoconf
-%configure2_5x
+%configure2_5x \
+		%if %with debug
+		--enable-debug \
+		%endif
+		--with-pic
 %make
 
 # Fdo and Utilities
@@ -407,8 +414,13 @@ done
 # Providers
 for name in Providers/*; do
     pushd $name
-	aclocal --force && libtoolize -c -f && automake -a -f && autoconf
-        %configure2_5x
+		aclocal --force && libtoolize -c -f && automake -a -f && autoconf
+      	%configure2_5x \
+		%if %with debug
+		--enable-debug \
+		%endif
+		--with-pic
+		
         %make
     popd
 done
@@ -425,10 +437,6 @@ cd OpenSource_FDO
 make DESTDIR=%buildroot install
 make -C Fdo DESTDIR=%buildroot install
 make -C Utilities DESTDIR=%buildroot install
-
-pushd $FDOTHIRDPARTY/Sqlite3.3.13/Src/build
-	%makeinstall_std
-popd
 
 for name in Providers/*; do
     pushd $name
