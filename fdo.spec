@@ -261,7 +261,7 @@ Group: System/Libraries
 Summary: Fdo postgis library provider
 Provides: fdo-postgis = %epoch:%version
 BuildRequires: postgresql-devel
-BuildRequires: postgis-devel
+BuildRequires: postgis
 Requires: fdo-postgis-common = %epoch:%version
 Requires: %libfdo = %epoch:%version
 
