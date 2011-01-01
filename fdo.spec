@@ -13,7 +13,7 @@
 
 Name: fdo
 Version: 3.4.0
-Release: %mkrel 9
+Release: %mkrel 10
 Epoch: 1
 License: LGPL
 Summary: Feature Data Objects (FDO)
