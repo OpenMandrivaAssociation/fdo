@@ -1,6 +1,6 @@
 %bcond_with debug
 
-%define fdodir %_prefix/lib/fdo
+%define fdodir %{_prefix}/lib/fdo
 
 %define libfdo	 %mklibname fdo 3.4
 %define libshp   %mklibname shpprovider 3.4
@@ -12,9 +12,9 @@
 %define libgdal	%mklibname gdalprovider 3.4
 
 Name: fdo
-Version: 3.4.0
-Release: %mkrel 10
 Epoch: 1
+Version: 3.4.0
+Release: 11
 License: LGPL
 Summary: Feature Data Objects (FDO)
 Group: Sciences/Geosciences
@@ -42,26 +42,25 @@ Patch14: fdo-3.4.0-sdf-precision.patch
 Patch16: fdo-3.4.0-genericrdbms-install64.patch
 Patch17: fdo-3.4.0-doc-install.patch
 Patch18: fdo-3.4.0-gcc44.patch
-BuildRoot: %{_tmppath}/%{name}-%{version}-root
+
 Buildrequires: cmake
-BuildRequires: autoconf
-BuildRequires: automake
+BuildRequires: sed
 BuildRequires: xalan-c-devel >= 1.10
 BuildRequires: libcurl-devel
 BuildRequires: boost-devel
 BuildRequires: mkcatdefs
 BuildRequires: python-devel
 BuildRequires: openssl-devel
-BuildRequires: sed
 BuildConflicts: cppunit-devel
-Requires: %{libfdo} = %epoch:%version
-Requires: %{libshp} = %epoch:%version
-Requires: %{librdbms} = %epoch:%version
-Requires: %{libsdf} = %epoch:%version
-Requires: %{libwfs} = %epoch:%version
-Requires: %{libwms} = %epoch:%version
-Requires: %{libpostgis} = %epoch:%version
-Requires: %{libgdal} = %epoch:%version
+
+Requires: %{libfdo} = %epoch:%{version}
+Requires: %{libshp} = %epoch:%{version}
+Requires: %{librdbms} = %epoch:%{version}
+Requires: %{libsdf} = %epoch:%{version}
+Requires: %{libwfs} = %epoch:%{version}
+Requires: %{libwms} = %epoch:%{version}
+Requires: %{libpostgis} = %epoch:%{version}
+Requires: %{libgdal} = %epoch:%{version}
 
 %description
 Feature Data Objects (FDO) is an API for manipulating, defining, and analyzing
@@ -81,27 +80,25 @@ Summary: FDO common data
 FDO common data.
 
 %files common
-%defattr(-,root,root,-)
-%_libdir/com
-%_libdir/providers.xml
-%dir %_datadir/locale/en
-%_datadir/locale/en/FDOMessage.cat
-%_datadir/locale/en/SmMessage.cat
+%{_libdir}/com
+%{_libdir}/providers.xml
+%dir %{_datadir}/locale/en
+%{_datadir}/locale/en/FDOMessage.cat
+%{_datadir}/locale/en/SmMessage.cat
 
 %package -n %libfdo
 Group: System/Libraries
 Summary: Fdo core library
-Requires: fdo-common = %epoch:%version
+Requires: fdo-common = %epoch:%{version}
 
 %description -n %libfdo
 Fdo core library.
 
 %files -n %libfdo
-%defattr(-,root,root,-)
-%_libdir/libExpressionEngine-%version.so
-%_libdir/libFDO-%version.so
-%_libdir/libFdoOws-%version.so
-%_libdir/libSchemaMgr*-%version.so
+%{_libdir}/libExpressionEngine-%{version}.so
+%{_libdir}/libFDO-%{version}.so
+%{_libdir}/libFdoOws-%{version}.so
+%{_libdir}/libSchemaMgr*-%{version}.so
 
 #-------------------------------------------------------------------------------
 
@@ -113,22 +110,20 @@ Summary: Fdo shp library provider common data
 FDO shp library provider common data.
 
 %files shp-common
-%defattr(-,root,root,-)
-%_datadir/locale/en/ShpMessage.cat
+%{_datadir}/locale/en/ShpMessage.cat
 
 %package -n %libshp
 Group: System/Libraries
 Summary: Fdo shp library provider
-Provides: fdo-shp = %epoch:%version
-Requires: fdo-shp-common = %epoch:%version
-Requires: %libfdo = %epoch:%version
+Provides: fdo-shp = %epoch:%{version}
+Requires: fdo-shp-common = %epoch:%{version}
+Requires: %libfdo = %epoch:%{version}
 
 %description -n %libshp
 Fdo shp library provider.
 
 %files -n %libshp
-%defattr(-,root,root,-)
-%_libdir/libSHP*-%version.so
+%{_libdir}/libSHP*-%{version}.so
 
 #-------------------------------------------------------------------------------
 
@@ -140,27 +135,25 @@ Summary: Fdo rdbms library provider common data
 FDO rdbms library provider common data.
 
 %files rdbms-common
-%defattr(-,root,root,-)
-%_datadir/locale/en/fdordbmsmsg.cat
+%{_datadir}/locale/en/fdordbmsmsg.cat
 
 %package -n %librdbms
 Group: System/Libraries
 Summary: Fdo rdbms library provider
-Provides: fdo-rdbms = %epoch:%version
-Provides: fdo-odbc = %epoch:%version
-Provides: fdo-mysql = %epoch:%version
+Provides: fdo-rdbms = %epoch:%{version}
+Provides: fdo-odbc = %epoch:%{version}
+Provides: fdo-mysql = %epoch:%{version}
 BuildRequires: mysql-devel
 BuildRequires: unixODBC-devel
-Requires: fdo-rdbms-common = %epoch:%version
-Requires: %libfdo = %epoch:%version
+Requires: fdo-rdbms-common = %epoch:%{version}
+Requires: %libfdo = %epoch:%{version}
 
 %description -n %librdbms
 Fdo rdbms library provider.
 
 %files -n %librdbms
-%defattr(-,root,root,-)
-%_libdir/libFdoMySQL-%version.so
-%_libdir/libFdoODBC-%version.so
+%{_libdir}/libFdoMySQL-%{version}.so
+%{_libdir}/libFdoODBC-%{version}.so
 
 #-------------------------------------------------------------------------------
 
@@ -172,22 +165,20 @@ Summary: Fdo sdf library provider common data
 Fdo sdf library provider common data.
 
 %files sdf-common
-%defattr(-,root,root,-)
-%_datadir/locale/en/SDFMessage.cat
+%{_datadir}/locale/en/SDFMessage.cat
 
 %package -n %libsdf
 Group: System/Libraries
 Summary: Fdo sdf library provider
-Provides: fdo-sdf = %epoch:%version
-Requires: fdo-sdf-common = %epoch:%version
-Requires: %libfdo = %epoch:%version
+Provides: fdo-sdf = %epoch:%{version}
+Requires: fdo-sdf-common = %epoch:%{version}
+Requires: %libfdo = %epoch:%{version}
 
 %description -n %libsdf
 Fdo sdf library provider.
 
 %files -n %libsdf
-%defattr(-,root,root,-)
-%_libdir/libSDF*-%version.so
+%{_libdir}/libSDF*-%{version}.so
 
 #-------------------------------------------------------------------------------
 
@@ -199,22 +190,20 @@ Summary: Fdo wfs library provider common data
 Fdo wfs library provider common data.
 
 %files wfs-common
-%defattr(-,root,root,-)
-%_datadir/locale/en/WFSMessage.cat
+%{_datadir}/locale/en/WFSMessage.cat
 
 %package -n %libwfs
 Group: System/Libraries
 Summary: Fdo wfs library provider
-Provides: fdo-wfs = %epoch:%version
-Requires: fdo-wfs-common = %epoch:%version
-Requires: %libfdo = %epoch:%version
+Provides: fdo-wfs = %epoch:%{version}
+Requires: fdo-wfs-common = %epoch:%{version}
+Requires: %libfdo = %epoch:%{version}
 
 %description -n %libwfs
 Fdo wfs library provider.
 
 %files -n %libwfs
-%defattr(-,root,root,-)
-%_libdir/libWFS*-%version.so
+%{_libdir}/libWFS*-%{version}.so
 
 #-------------------------------------------------------------------------------
 
@@ -226,22 +215,20 @@ Summary: Fdo wms library provider common data
 Fdo wms library provider common data.
 
 %files wms-common
-%defattr(-,root,root,-)
-%_datadir/locale/en/FdoWmsMessage.cat
+%{_datadir}/locale/en/FdoWmsMessage.cat
 
 %package -n %libwms
 Group: System/Libraries
 Summary: Fdo wms library provider
-Provides: fdo-wms = %epoch:%version
-Requires: fdo-wms-common = %epoch:%version
-Requires: %libfdo = %epoch:%version
+Provides: fdo-wms = %epoch:%{version}
+Requires: fdo-wms-common = %epoch:%{version}
+Requires: %libfdo = %epoch:%{version}
 
 %description -n %libwms
 Fdo wms library provider.
 
 %files -n %libwms
-%defattr(-,root,root,-)
-%_libdir/libWMS*-%version.so
+%{_libdir}/libWMS*-%{version}.so
 
 #-------------------------------------------------------------------------------
 
@@ -253,24 +240,22 @@ Summary: FDO postgis library provider common data
 FDO SHP library provider common data.
 
 %files postgis-common
-%defattr(-,root,root,-)
-%_datadir/locale/en/PostGisMessage.cat
+%{_datadir}/locale/en/PostGisMessage.cat
 
 %package -n %libpostgis
 Group: System/Libraries
 Summary: Fdo postgis library provider
-Provides: fdo-postgis = %epoch:%version
+Provides: fdo-postgis = %epoch:%{version}
 BuildRequires: postgresql-devel
 BuildRequires: postgis
-Requires: fdo-postgis-common = %epoch:%version
-Requires: %libfdo = %epoch:%version
+Requires: fdo-postgis-common = %epoch:%{version}
+Requires: %libfdo = %epoch:%{version}
 
 %description -n %libpostgis
 Fdo postgis library provider.
 
 %files -n %libpostgis
-%defattr(-,root,root,-)
-%_libdir/libPostGIS*-%version.so
+%{_libdir}/libPostGIS*-%{version}.so
 
 #-------------------------------------------------------------------------------
 
@@ -282,26 +267,24 @@ Summary: FDO gdal library provider common data
 FDO SHP library provider common data.
 
 %files gdal-common
-%defattr(-,root,root,-)
-%_datadir/locale/en/GRFPMessage.cat
+%{_datadir}/locale/en/GRFPMessage.cat
 
 %package -n %libgdal
 Group: System/Libraries
 Summary: Fdo gdal library provider
-Provides: fdo-gdal = %epoch:%version
+Provides: fdo-gdal = %epoch:%{version}
 BuildRequires: gdal-devel
 BuildRequires: proj-devel
 BuildRequires: ogdi-devel
-Requires: fdo-gdal-common = %epoch:%version
-Requires: %libfdo = %epoch:%version
+Requires: fdo-gdal-common = %epoch:%{version}
+Requires: %libfdo = %epoch:%{version}
 
 %description -n %libgdal
 Fdo gdal library provider.
 
 %files -n %libgdal
-%defattr(-,root,root,-)
-%_libdir/libGRFP*-%version.so
-%_libdir/libOGR*-%version.so
+%{_libdir}/libGRFP*-%{version}.so
+%{_libdir}/libOGR*-%{version}.so
 
 #-------------------------------------------------------------------------------
 
@@ -313,8 +296,7 @@ Summary: FDO Docs
 FDO Docs.
 
 %files doc
-%defattr(-,root,root,-)
-%_prefix/docs
+%{_prefix}/docs
 
 #-------------------------------------------------------------------------------
 
@@ -325,29 +307,28 @@ Group: Development/C++
 Summary: fdo library devel 
 Provides: fdo-devel
 Obsoletes: %{_lib}fdo3-devel
-Requires: %{libfdo} = %epoch:%version
-Requires: %{libshp} = %epoch:%version
-Requires: %{librdbms} = %epoch:%version
-Requires: %{libsdf} = %epoch:%version
-Requires: %{libwfs} = %epoch:%version
-Requires: %{libwms} = %epoch:%version
-Requires: %{libpostgis} = %epoch:%version
-Requires: %{libgdal} = %epoch:%version
+Requires: %{libfdo} = %epoch:%{version}
+Requires: %{libshp} = %epoch:%{version}
+Requires: %{librdbms} = %epoch:%{version}
+Requires: %{libsdf} = %epoch:%{version}
+Requires: %{libwfs} = %epoch:%{version}
+Requires: %{libwms} = %epoch:%{version}
+Requires: %{libpostgis} = %epoch:%{version}
+Requires: %{libgdal} = %epoch:%{version}
 
 %description -n %libdev
 fdo library devel
 
 %files -n %libdev
-%defattr(-,root,root,-)
-%_libdir/*.so
-%_libdir/*.la
-%_includedir/*
-%exclude %_libdir/*-3.4.0.so
+%{_libdir}/*.so
+%{_libdir}/*.la
+%{_includedir}/*
+%exclude %{_libdir}/*-3.4.0.so
 
 #-------------------------------------------------------------------------------
 
 %prep
-%setup -q -T -c -n %name-%version -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8
+%setup -q -T -c -n %{name}-%{version} -a 0 -a 1 -a 2 -a 3 -a 4 -a 5 -a 6 -a 7 -a 8
 
 # Remove undesired ThirdParty
 
@@ -369,15 +350,15 @@ cd OpenSource_FDO
 %patch18 -p1 -b .gcc44
 
 %build
-FDO=%_builddir/%name-%version/OpenSource_FDO/Fdo
-FDOTHIRDPARTY=%_builddir/%name-%version/OpenSource_FDO/Thirdparty
-FDOUTILITIES=%_builddir/%name-%version/OpenSource_FDO/Utilities
-FDOGDAL=%_prefix
-FDOODBC=%_prefix
+FDO=%{_builddir}/%{name}-%{version}/OpenSource_FDO/Fdo
+FDOTHIRDPARTY=%{_builddir}/%{name}-%{version}/OpenSource_FDO/Thirdparty
+FDOUTILITIES=%{_builddir}/%{name}-%{version}/OpenSource_FDO/Utilities
+FDOGDAL=%{_prefix}
+FDOODBC=%{_prefix}
 PYTHON_LIB_PATH=%py_libdir
 PYTHON_INCLUDE_PATH=%py_incdir
 
-CPPFLAGS="$CPPFLAGS -I%_includedir/gdal -I%_includedir/pgsql"
+CPPFLAGS="$CPPFLAGS -I%{_includedir}/gdal -I%{_includedir}/pgsql"
 
 export FDO FDOUTILITIES FDOGDAL FDOODBC PYTHON_LIB_PATH PYTHON_INCLUDE_PATH FDOTHIRDPARTY CPPFLAGS
 
@@ -398,10 +379,11 @@ cd OpenSource_FDO
 # FDO Core
 aclocal --force && libtoolize -c -f && automake -a -f && autoconf
 %configure2_5x \
-		%if %with debug
-		--enable-debug \
-		%endif
-		--with-pic
+%if %with debug
+	--enable-debug \
+%endif
+	--with-pic
+
 %make
 
 # Fdo and Utilities
@@ -425,31 +407,28 @@ for name in Providers/*; do
     popd
 done
 
-
 %install
-rm -rf %buildroot
-
-FDOTHIRDPARTY=%_builddir/%name-%version/OpenSource_FDO/Thirdparty
+FDOTHIRDPARTY=%{_builddir}/%{name}-%{version}/OpenSource_FDO/Thirdparty
 export FDOTHIRDPARTY
 
 cd OpenSource_FDO
 
-make DESTDIR=%buildroot install
-make -C Fdo DESTDIR=%buildroot install
-make -C Utilities DESTDIR=%buildroot install
+make DESTDIR=%{buildroot} install
+make -C Fdo DESTDIR=%{buildroot} install
+make -C Utilities DESTDIR=%{buildroot} install
 
 for name in Providers/*; do
     pushd $name
-        make DESTDIR=%buildroot install
+        make DESTDIR=%{buildroot} install
     popd
 done
 
 
 # Fix providers file 
-sed -i "s,/usr/local/fdo-3.4.0/lib,%_libdir,g" %buildroot/%_libdir/providers.xml
-sed -i "s,.so</LibraryPath>,-3.4.0.so</LibraryPath>,g" %buildroot/%_libdir/providers.xml
+sed -i "s,/usr/local/fdo-3.4.0/lib,%{_libdir},g" %{buildroot}/%{_libdir}/providers.xml
+sed -i "s,.so</LibraryPath>,-3.4.0.so</LibraryPath>,g" %{buildroot}/%{_libdir}/providers.xml
 
 # nls not exists in Linux, need move to locale
-mkdir -p %buildroot/%_datadir/locale/
-mv %buildroot/%_prefix/nls %buildroot/%_datadir/locale/en
+mkdir -p %{buildroot}/%{_datadir}/locale/
+mv %{buildroot}/%{_prefix}/nls %{buildroot}/%{_datadir}/locale/en
 
