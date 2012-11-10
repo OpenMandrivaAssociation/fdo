@@ -1,0 +1,17 @@
+--- OpenSource_FDO/Utilities/OWS/Makefile.am.orig	2009-03-13 13:26:31.000000000 -0300
++++ OpenSource_FDO/Utilities/OWS/Makefile.am	2009-03-13 13:28:33.000000000 -0300
+@@ -64,10 +64,10 @@
+   $(FDO)/Unmanaged/Src/Geometry/libFDOGeometry.la  \
+   $(FDO)/Unmanaged/Src/Common/libFDOCommon.la  \
+   $(FDOUTILITIES)/Common/libProvidersCommon.la \
+-  $(FDOTHIRDPARTY)/boost/stage/lib/libboost_thread-mt.a \
+-  $(FDOTHIRDPARTY)/libcurl/lib/linux/libcurl.a  \
+-  $(FDOTHIRDPARTY)/openssl/lib/linux/libssl.a \
+-  $(FDOTHIRDPARTY)/openssl/lib/linux/libcrypto.a \
++  -lboost_thread-mt \
++  -lcurl  \
++  -lssl \
++  -lcrypto \
+   -lz \
+   -lpthread
+ 

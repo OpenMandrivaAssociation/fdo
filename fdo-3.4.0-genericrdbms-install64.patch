@@ -1,0 +1,11 @@
+--- OpenSource_FDO/Providers/GenericRdbms/Src/Makefile.am.orig	2009-03-30 11:02:28.000000000 -0300
++++ OpenSource_FDO/Providers/GenericRdbms/Src/Makefile.am	2009-03-30 11:02:36.000000000 -0300
+@@ -24,8 +24,6 @@
+ 
+ lib_LTLIBRARIES = libFdoMySQL.la libFdoODBC.la libSchemaMgr_OV.la
+ 
+-libdir = $(prefix)/lib
+-
+ libFdoMySQL_la_SOURCES =
+ 
+ ##building libFdoMySQL.so

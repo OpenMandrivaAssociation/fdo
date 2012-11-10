@@ -1,0 +1,119 @@
+--- OpenSource_FDO/Fdo/Unmanaged/Src/Common/Exception.cpp.orig	2008-10-13 11:20:18.000000000 -0300
++++ OpenSource_FDO/Fdo/Unmanaged/Src/Common/Exception.cpp	2008-10-13 11:23:24.000000000 -0300
+@@ -69,10 +69,10 @@
+ 
+ extern "C" 
+ wchar_t * nls_msg_get_W2(wchar_t *msg_string, 
+-                        char *cat_name, 
++                        const char *cat_name, 
+                         int set_num, 
+                         unsigned long msg_num, // was DWORD 
+-                        char *default_msg, 
++                        const char *default_msg, 
+                         va_list arguments); 
+ 
+ FdoException* FdoException::Create()
+@@ -152,7 +152,7 @@
+     return NULL;
+ }
+ 
+-FdoString* FdoException::NLSGetMessage(FdoInt32 msgNum, char* defMsg, char* file, int line, ...)
++FdoString* FdoException::NLSGetMessage(FdoInt32 msgNum, const char* defMsg, const char* file, int line, ...)
+ {
+     va_list arguments;
+ 
+@@ -162,7 +162,7 @@
+     return result;
+ }
+ 
+-FdoString* FdoException::NLSGetMessage(FdoInt32 msgNum, char* defMsg, char* file, int line, char* catalog, va_list arguments)
++FdoString* FdoException::NLSGetMessage(FdoInt32 msgNum, const char* defMsg, const char* file, int line, const char* catalog, va_list arguments)
+ {
+ #ifdef  _DEBUG
+ 
+@@ -181,7 +181,7 @@
+ #endif
+ }
+ 
+-FdoString* FdoException::NLSGetMessage(FdoInt32 msgNum, char* defMsg, ...)
++FdoString* FdoException::NLSGetMessage(FdoInt32 msgNum, const char* defMsg, ...)
+ {
+     va_list arguments;
+ 
+@@ -191,7 +191,7 @@
+     return result;
+ }
+ 
+-FdoString* FdoException::NLSGetMessage(FdoInt32 msgNum, char* defMsg, char* catalog, va_list arguments)
++FdoString* FdoException::NLSGetMessage(FdoInt32 msgNum, const char* defMsg, const char* catalog, va_list arguments)
+ {
+     return nls_msg_get_W2(NULL, catalog, 1, msgNum, defMsg, arguments); 
+ }
+--- OpenSource_FDO/Fdo/Unmanaged/Inc/Common/Exception.h.orig	2008-10-13 11:18:46.000000000 -0300
++++ OpenSource_FDO/Fdo/Unmanaged/Inc/Common/Exception.h	2008-10-13 11:22:09.000000000 -0300
+@@ -160,7 +160,7 @@
+     /// \return
+     /// Returns the localized message text
+     /// 
+-    FDO_API_COMMON static FdoString* NLSGetMessage(FdoInt32 msgNum, char* defMsg, char* file, int line, ...);
++    FDO_API_COMMON static FdoString* NLSGetMessage(FdoInt32 msgNum, const char* defMsg, const char* file, int line, ...);
+ 
+     /// \brief
+     /// Gets the exception message. For internal use by FdoException class in getting a localized message.
+@@ -181,7 +181,7 @@
+     /// \return
+     /// Returns the localized message text
+     /// 
+-    FDO_API_COMMON static FdoString* NLSGetMessage(FdoInt32 msgNum, char* defMsg, char* file, int line, char* catalog, va_list arguments);
++    FDO_API_COMMON static FdoString* NLSGetMessage(FdoInt32 msgNum, const char* defMsg, const char* file, int line, const char* catalog, va_list arguments);
+ 
+     /// \brief
+     /// Gets the exception message. For internal use by template classes in getting a localized message.
+@@ -198,7 +198,7 @@
+     /// \return
+     /// Returns the localized message text
+     /// 
+-    FDO_API_COMMON static FdoString* NLSGetMessage(FdoInt32 msgNum, char* defMsg, ...);
++    FDO_API_COMMON static FdoString* NLSGetMessage(FdoInt32 msgNum, const char* defMsg, ...);
+ 
+     /// \brief
+     /// Gets the exception message. For internal use by FdoException class in getting a localized message.
+@@ -215,7 +215,7 @@
+     /// \return
+     /// Returns the localized message text
+     /// 
+-    FDO_API_COMMON static FdoString* NLSGetMessage(FdoInt32 msgNum, char* defMsg, char* catalog, va_list arguments);
++    FDO_API_COMMON static FdoString* NLSGetMessage(FdoInt32 msgNum, const char* defMsg, const char* catalog, va_list arguments);
+ 
+ /// \cond DOXYGEN-IGNORE
+ protected:
+--- OpenSource_FDO/Fdo/Unmanaged/Src/Nls/msg_get.c.orig	2008-10-13 11:24:30.000000000 -0300
++++ OpenSource_FDO/Fdo/Unmanaged/Src/Nls/msg_get.c	2008-10-13 11:24:49.000000000 -0300
+@@ -40,10 +40,10 @@
+ extern pthread_mutex_t NlsMsgGetCriticalSection;
+ 
+ wchar_t* nls_msg_get_W2(wchar_t *msg_string,
+-            char *cat_name,
++            const char *cat_name,
+             int  set_num,
+             int  msg_num,
+-            char *default_msg,
++            const char *default_msg,
+             va_list argp)
+ {
+     char			*fmt_str = NULL;
+--- OpenSource_FDO/Fdo/Unmanaged/Src/Nls/Inc/nls.h.orig	2008-10-13 11:26:20.000000000 -0300
++++ OpenSource_FDO/Fdo/Unmanaged/Src/Nls/Inc/nls.h	2008-10-13 11:26:45.000000000 -0300
+@@ -119,10 +119,10 @@
+                                         char *default_msg,
+                                         ...));
+ extern wchar_t *    nls_msg_get_W2       PROTO ((wchar_t *msg_string,
+-                                        char *cat_name,
++                                        const char *cat_name,
+                                         int  set_num,
+                                         DWORD msg_num,
+-                                        char *default_msg,
++                                        const char *default_msg,
+                                         va_list arguments));
+ extern char *   nls_ftoa     	PROTO ((double number,
+                                         int width,

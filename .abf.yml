@@ -1,0 +1,13 @@
+sources:
+  "CMakeLists.txt:"	11c6543182670ef6091e6fb55e8422a8b8c1d9df
+  "fdo-3.4.0.tar.gz:"	4ddad44b0499abb183dc458ac7d3627902f62b7d
+  "fdogdal-3.4.0.tar.gz:"	8664fd00cb8356b1debd30a89c4f6b337cdab6ac
+  "fdoogr-3.4.0.tar.gz:"	7c15066bcd3065b9664d6cb872c0954528ba92b9
+  "fdopostgis-3.4.0.tar.gz:"	6a3abfcf65a87310f050b302ebc7aa90651bcf4b
+  "fdordbms-3.4.0.tar.gz:"	439d03f3ab8a05a2a681050a050f81114b5ff2d1
+  "fdosdf-3.4.0.tar.gz:"	fbb6a055e59cf32e5cf2da2d0fffa60e4da79d5c
+  "fdoshp-3.4.0.tar.gz:"	564df33d8c85b4d03107ecc9eb923ef1fa17af89
+  "fdosqlite-3.4.0.tar.gz:"	f9443de16e447e470cc3f820afde3b6b3a20fd01
+  "fdowfs-3.4.0.tar.gz:"	83aba7c9d12429e4fc53f7e30ab33912f538340c
+  "fdowms-3.4.0.tar.gz:"	7aff1e6be0c4b20a80339beb1638ee5c2c6b09fb
+  "libsqlitefdo.la:"	30af3b862fa6c9a04c9b2c345c88395b02910364

@@ -1,0 +1,20 @@
+--- OpenSource_FDO/Providers/SDF/Src/Makefile.am.orig	2009-03-14 11:34:59.000000000 -0300
++++ OpenSource_FDO/Providers/SDF/Src/Makefile.am	2009-03-14 11:36:26.000000000 -0300
+@@ -36,9 +36,10 @@
+   ./Provider/libSDFProviderSrc.la  \
+   $(FDO)/Unmanaged/Src/libFDO.la \
+   $(FDOUTILITIES)/SQLiteInterface/libSQLiteInterface.la \
+-  $(FDOTHIRDPARTY)/Sqlite3.3.13/linux/lib/sqlite3.a \
++  $(FDOTHIRDPARTY)/Sqlite3.3.13/Src/libsqlitefdo.la \
+   $(FDOUTILITIES)/ExpressionEngine/Src/libExpressionEngine.la \
+   $(FDOUTILITIES)/Common/libProvidersCommon.la \
++  -ldl \
+   -lxalan-c \
+   -lxalanMsg \
+   -lxerces-c
+@@ -48,4 +48,5 @@
+   -release $(VERSION) \
+   -L$(FDOTHIRDPARTY)/apache/xml-xalan/c/lib \
+   -L$(FDOTHIRDPARTY)/apache/xml-xerces/c/lib \
++  -L$(FDOTHIRDPARTY)/Sqlite3.3.13/Src/build/ \
+   -Wl,-Bsymbolic

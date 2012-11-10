@@ -1,0 +1,17 @@
+--- OpenSource_FDO/Providers/PostGIS/Src/Makefile.am.orig	2007-11-06 20:55:26.000000000 -0200
++++ OpenSource_FDO/Providers/PostGIS/Src/Makefile.am	2009-03-14 11:15:57.000000000 -0300
+@@ -51,11 +51,10 @@
+   libPostGISOverrides.la \
+   ../../../Utilities/Common/libProvidersCommon.la \
+   ../../../Fdo/Unmanaged/Src/libFDO.la \
+-  ../../../Thirdparty/boost/stage/lib/libboost_thread-mt.a \
+-  ../../../Thirdparty/boost/stage/lib/libboost_date_time-mt.a \
++  -lboost_thread-mt \
++  -lboost_date_time-mt \
+   -lpq
+ 
+ libPostGISProvider_la_LDFLAGS = \
+   -shared \
+-  -release $(VERSION) \
+-  -L../../../Thirdparty/pgsql/lib
++  -release $(VERSION) 

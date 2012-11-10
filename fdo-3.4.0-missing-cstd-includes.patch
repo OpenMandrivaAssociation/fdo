@@ -1,0 +1,83 @@
+--- OpenSource_FDO/Utilities/TestCommon/Src/TestCommonFileUtil.cpp.orig	2009-03-13 13:22:23.000000000 -0300
++++ OpenSource_FDO/Utilities/TestCommon/Src/TestCommonFileUtil.cpp	2009-03-13 13:22:35.000000000 -0300
+@@ -24,6 +24,8 @@
+  *
+  */
+ 
++#include <cstring>
++
+ #include "stdafx.h"
+ #include "TestCommonFileUtil.h"
+ #include "FdoCommonFile.h"
+--- OpenSource_FDO/Utilities/ExpressionEngine/Src/Functions/String/FdoFunctionConcat.cpp.orig	2009-03-13 13:24:15.000000000 -0300
++++ OpenSource_FDO/Utilities/ExpressionEngine/Src/Functions/String/FdoFunctionConcat.cpp	2009-03-13 13:24:28.000000000 -0300
+@@ -17,6 +17,8 @@
+ // 
+ //
+ 
++#include <cstring>
++
+ #include <stdafx.h>
+ #include <Functions/String/FdoFunctionConcat.h>
+ #include "../../../../../Fdo/Unmanaged/Src/Common/StringUtility.h"
+--- OpenSource_FDO/Utilities/SchemaMgr/Src/Sm/Lp/ClassDefinition.cpp.orig	2009-03-13 13:30:36.000000000 -0300
++++ OpenSource_FDO/Utilities/SchemaMgr/Src/Sm/Lp/ClassDefinition.cpp	2009-03-13 13:30:51.000000000 -0300
+@@ -16,6 +16,7 @@
+  *
+  */
+ 
++#include <cstring>
+ #include "stdafx.h"
+ #include <math.h>
+ #include <Sm/Ph/DependencyCollection.h>
+--- OpenSource_FDO/Utilities/SchemaMgr/Src/Sm/Lp/SimplePropertyDefinition.cpp.orig	2009-03-13 13:32:22.000000000 -0300
++++ OpenSource_FDO/Utilities/SchemaMgr/Src/Sm/Lp/SimplePropertyDefinition.cpp	2009-03-13 13:32:32.000000000 -0300
+@@ -16,6 +16,7 @@
+  *
+  */
+ 
++#include <cstring>
+ #include "stdafx.h"
+ #include <Sm/Lp/ClassDefinition.h>
+ #include <Sm/Lp/SimplePropertyDefinition.h>
+--- OpenSource_FDO/Utilities/SchemaMgr/Src/Sm/Ph/Field.cpp.orig	2009-03-13 13:34:58.000000000 -0300
++++ OpenSource_FDO/Utilities/SchemaMgr/Src/Sm/Ph/Field.cpp	2009-03-13 13:35:10.000000000 -0300
+@@ -16,6 +16,8 @@
+  *
+  */
+ 
++#include <cstring>
++
+ #include "stdafx.h"
+ #include <Sm/Ph/Row.h>
+ #include <Sm/Error.h>
+--- OpenSource_FDO/Utilities/SchemaMgr/Src/Sm/Ph/Mgr.cpp.orig	2009-03-13 13:36:00.000000000 -0300
++++ OpenSource_FDO/Utilities/SchemaMgr/Src/Sm/Ph/Mgr.cpp	2009-03-13 13:36:13.000000000 -0300
+@@ -17,6 +17,7 @@
+  */
+ 
+ #include "stdafx.h"
++#include <cstring>
+ #include <malloc.h>
+ #include <Sm/Ph/Mgr.h>
+ 
+--- OpenSource_FDO/Utilities/SchemaMgr/Src/Sm/Ph/Owner.cpp.orig	2009-03-13 14:15:19.000000000 -0300
++++ OpenSource_FDO/Utilities/SchemaMgr/Src/Sm/Ph/Owner.cpp	2009-03-13 14:15:33.000000000 -0300
+@@ -16,6 +16,7 @@
+  * 
+  */
+ 
++#include <cstring>
+ #include "stdafx.h"
+ #include <math.h>
+ #include <Sm/Ph/Owner.h>
+--- OpenSource_FDO/Providers/WFS/Src/Provider/FdoWfsSchemaMerger.cpp.orig	2009-03-30 15:44:06.000000000 -0300
++++ OpenSource_FDO/Providers/WFS/Src/Provider/FdoWfsSchemaMerger.cpp	2009-03-30 15:45:03.000000000 -0300
+@@ -16,6 +16,7 @@
+  *
+  */
+ 
++#include <cstring>
+ #include "stdafx.h"
+ #include "FdoWfsSchemaMerger.h"
+ #include "FdoWfsSchemaRefHandler.h"

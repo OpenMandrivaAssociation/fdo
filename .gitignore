@@ -1,0 +1,12 @@
+CMakeLists.txt
+fdo-3.4.0.tar.gz
+fdogdal-3.4.0.tar.gz
+fdoogr-3.4.0.tar.gz
+fdopostgis-3.4.0.tar.gz
+fdordbms-3.4.0.tar.gz
+fdosdf-3.4.0.tar.gz
+fdoshp-3.4.0.tar.gz
+fdosqlite-3.4.0.tar.gz
+fdowfs-3.4.0.tar.gz
+fdowms-3.4.0.tar.gz
+libsqlitefdo.la

@@ -1,0 +1,42 @@
+--- OpenSource_FDO/Fdo/Unmanaged/Src/Fdo/ClientServices/RegistryUtility.cpp.orig	2009-06-10 14:28:13.000000000 -0300
++++ OpenSource_FDO/Fdo/Unmanaged/Src/Fdo/ClientServices/RegistryUtility.cpp	2009-06-10 14:29:26.000000000 -0300
+@@ -789,7 +789,7 @@
+             const char *me;
+             char *home;
+             char *last;
+-            char *install = "/usr/local/fdo-3.4.0";
++            const char *install = "/usr/local/fdo-3.4.0";
+ 
+             // Determine the user-specified FDO install location
+             char *fdo_home = getenv( "FDOHOME" );
+@@ -808,7 +808,7 @@
+                 *last = '\0';
+             }
+             else
+-                home = "./";
++                home = (char*)"./";
+             
+             sprintf (_fileName, "%s%s", home, "providers.xml");
+             if ((0 != stat (_fileName, &my_stat)) || !S_ISREG(my_stat.st_mode))
+--- OpenSource_FDO/Fdo/Unmanaged/Src/Fdo/ClientServices/prefix.cpp.orig	2009-06-10 15:09:21.000000000 -0300
++++ OpenSource_FDO/Fdo/Unmanaged/Src/Fdo/ClientServices/prefix.cpp	2009-06-10 15:12:04.000000000 -0300
+@@ -380,7 +380,8 @@
+ char *
+ br_extract_dir (const char *path)
+ {
+-	char *end, *result;
++	const char *end;
++    char *result;
+ 
+ 	br_return_val_if_fail (path != NULL, NULL);
+ 
+@@ -414,7 +415,8 @@
+ char *
+ br_extract_prefix (const char *path)
+ {
+-	char *end, *tmp, *result;
++	const char *end;
++    char *tmp, *result;
+ 
+ 	br_return_val_if_fail (path != NULL, NULL);
+ 

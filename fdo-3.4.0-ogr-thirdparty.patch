@@ -1,0 +1,30 @@
+--- OpenSource_FDO/Providers/OGR/Makefile.am.orig	2009-03-13 17:27:03.000000000 -0300
++++ OpenSource_FDO/Providers/OGR/Makefile.am	2009-03-13 17:27:43.000000000 -0300
+@@ -38,24 +38,19 @@
+ 
+ libOGRProvider_la_LIBADD =  \
+   ../../Fdo/Unmanaged/Src/libFDO.la \
+- -lgdal  
++ -lgdal
+ 
+ libOGRProvider_la_LDFLAGS = \
+   -shared \
+   -release $(VERSION) \
+-  -L$(FDOGDAL)/lib \
+-  -L../../Thirdparty/gdal/lib
++  -L$(FDOGDAL)/lib
+ 
+ INCLUDES = \
+   -I../../Fdo/Unmanaged/Inc \
+   -I$(FDOGDAL)/include \
+   -I$(FDOGDAL)/ogr \
+   -I$(FDOGDAL)/ogr/ogrsf_frmts \
+-  -I$(FDOGDAL)/port \
+-  -I../../Thirdparty/gdal/include \
+-  -I../../Thirdparty/gdal/ogr \
+-  -I../../Thirdparty/gdal/ogr/ogrsf_frmts \
+-  -I../../Thirdparty/gdal/port
++  -I$(FDOGDAL)/port
+ 
+ CXXFLAGS = @CXXFLAGS@ -D__USE_GNU -DLINUX -DLINUX_IA32
+ 

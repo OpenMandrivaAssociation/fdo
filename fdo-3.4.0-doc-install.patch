@@ -1,0 +1,204 @@
+--- OpenSource_FDO/Fdo/Docs/Makefile.am.orig	2009-06-03 00:01:03.000000000 -0400
++++ OpenSource_FDO/Fdo/Docs/Makefile.am	2009-06-03 00:02:02.000000000 -0400
+@@ -17,7 +17,7 @@
+ 
+ AUTOMAKE_OPTIONS = foreign
+ 
+-INSTALL_DIR = $(DESTDIR)/$(prefix)
++INSTALL_DIR  = $(prefix)
+ 
+ SUBDIRS = doc_src XmlSchema
+ 
+@@ -25,20 +25,19 @@
+ 
+ #install Docs
+ install :
+-
+-@if [ ! -d $(INSTALL_DIR)/share/doc/fdo ]; then mkdir -p $(INSTALL_DIR)/share/doc/fdo; fi
+-@if [ ! -d $(INSTALL_DIR)/share/doc/fdo/XmlSchema ]; then mkdir -p $(INSTALL_DIR)/share/doc/fdo/XmlSchema; fi
+-@if [ ! -d $(INSTALL_DIR)/share/doc/fdo/XmlSchema/Gml ]; then mkdir -p $(INSTALL_DIR)/share/doc/fdo/XmlSchema/Gml; fi
+-@if [ ! -d $(INSTALL_DIR)/share/doc/fdo/XmlSchema/Xlink ]; then mkdir -p $(INSTALL_DIR)/share/doc/fdo/XmlSchema/Xlink; fi
+-@if [ ! -d $(INSTALL_DIR)/share/doc/fdo/XmlSchema/XmlSchema ]; then mkdir -p $(INSTALL_DIR)/share/doc/fdo/XmlSchema/XmlSchema; fi
+-@../Install/XsdInstallPaths/XsdInstallPaths ./XmlSchema $(INSTALL_DIR)/share/doc/fdo/XmlSchema
+-@../Install/XsdInstallPaths/XsdInstallPaths ./XmlSchema/Gml $(INSTALL_DIR)/share/doc/fdo/XmlSchema/Gml
+-@../Install/XsdInstallPaths/XsdInstallPaths ./XmlSchema/Xlink $(INSTALL_DIR)/share/doc/fdo/XmlSchema/Xlink
+-@../Install/XsdInstallPaths/XsdInstallPaths ./XmlSchema/XmlSchema $(INSTALL_DIR)/share/doc/fdo/XmlSchema/XmlSchema
+-@cp -u -f XmlSchema/Gml/CopyRight.txt $(INSTALL_DIR)/share/doc/fdo/XmlSchema/Gml
+-@cp -u -f XmlSchema/Xlink/CopyRight.txt $(INSTALL_DIR)/share/doc/fdo/XmlSchema/Xlink
+-@cp -u -f XmlSchema/XmlSchema/base.css $(INSTALL_DIR)/share/doc/fdo/XmlSchema/XmlSchema
++	@if [ ! -d $(INSTALL_DIR)/docs ]; then mkdir -p $(INSTALL_DIR)/docs; fi
++	@if [ ! -d $(INSTALL_DIR)/docs/XmlSchema ]; then mkdir -p $(INSTALL_DIR)/docs/XmlSchema; fi
++	@if [ ! -d $(INSTALL_DIR)/docs/XmlSchema/Gml ]; then mkdir -p $(INSTALL_DIR)/docs/XmlSchema/Gml; fi
++	@if [ ! -d $(INSTALL_DIR)/docs/XmlSchema/Xlink ]; then mkdir -p $(INSTALL_DIR)/docs/XmlSchema/Xlink; fi
++	@if [ ! -d $(INSTALL_DIR)/docs/XmlSchema/XmlSchema ]; then mkdir -p $(INSTALL_DIR)/docs/XmlSchema/XmlSchema; fi
++	@../Install/XsdInstallPaths/XsdInstallPaths ./XmlSchema $(INSTALL_DIR)/docs/XmlSchema
++	@../Install/XsdInstallPaths/XsdInstallPaths ./XmlSchema/Gml $(INSTALL_DIR)/docs/XmlSchema/Gml
++	@../Install/XsdInstallPaths/XsdInstallPaths ./XmlSchema/Xlink $(INSTALL_DIR)/docs/XmlSchema/Xlink
++	@../Install/XsdInstallPaths/XsdInstallPaths ./XmlSchema/XmlSchema $(INSTALL_DIR)/docs/XmlSchema/XmlSchema
++	@cp -u -f XmlSchema/Gml/CopyRight.txt $(INSTALL_DIR)/docs/XmlSchema/Gml
++	@cp -u -f XmlSchema/Xlink/CopyRight.txt $(INSTALL_DIR)/docs/XmlSchema/Xlink
++	@cp -u -f XmlSchema/XmlSchema/base.css $(INSTALL_DIR)/docs/XmlSchema/XmlSchema
+ 
+ uninstall :
+-@rm -drf $(INSTALL_DIR)/share/doc/fdo
++	@rm -drf $(INSTALL_DIR)/docs
+ 
+--- OpenSource_FDO/Providers/GenericRdbms/Docs/Makefile.am.orig	2009-04-08 11:35:29.000000000 -0400
++++ OpenSource_FDO/Providers/GenericRdbms/Docs/Makefile.am	2009-06-03 02:22:47.000000000 -0400
+@@ -25,8 +25,7 @@
+ 
+ #install doc files
+ install :
+-
+-@if [ ! -d $(DESTDIR)/$(prefix)/share/doc/fdo ]; then mkdir -p $(DESTDIR)/$(prefix)/share/doc/fdo; fi
+-@if [ ! -d $(DESTDIR)/$(prefix)/share/doc/fdo/XmlSchema ]; then mkdir -p $(DESTDIR)/$(prefix)/share/doc/fdo/XmlSchema; fi
+-@$(FDO)/Install/XsdInstallPaths/XsdInstallPaths ./XmlSchema $(DESTDIR)/$(prefix)/share/doc/fdo/XmlSchema/XmlSchema
++	@if [ ! -d $(prefix)/docs ]; then mkdir -p $(prefix)/docs; fi
++	@if [ ! -d $(prefix)/docs/XmlSchema ]; then mkdir -p $(prefix)/docs/XmlSchema; fi
++	@$(FDO)/Install/XsdInstallPaths/XsdInstallPaths ./XmlSchema $(prefix)/docs/XmlSchema/XmlSchema
+ 
+--- OpenSource_FDO/Fdo/Docs/Makefile.am.orig	2009-06-09 19:47:28.000000000 -0300
++++ OpenSource_FDO/Fdo/Docs/Makefile.am	2009-06-09 19:48:20.000000000 -0300
+@@ -17,7 +17,7 @@
+ 
+ AUTOMAKE_OPTIONS = foreign
+ 
+-INSTALL_DIR  = $(prefix)
++INSTALL_DIR  = ${DESTDIR}/$(prefix)
+ 
+ SUBDIRS = doc_src XmlSchema
+ 
+--- OpenSource_FDO/Utilities/ExpressionEngine/Inc/Makefile.am.orig	2009-06-09 19:50:21.000000000 -0300
++++ OpenSource_FDO/Utilities/ExpressionEngine/Inc/Makefile.am	2009-06-09 19:50:45.000000000 -0300
+@@ -24,7 +24,7 @@
+    FdoExpressionEngineIFunction.h \
+    FdoExpressionEngineINonAggregateFunction.h
+  
+-INSTALL_DIR  = $(includedir)
++INSTALL_DIR  = ${DESTDIR}/$(includedir)
+ 
+ #install header files
+ install :
+--- OpenSource_FDO/Utilities/SchemaMgr/Nls/Makefile.am.orig	2009-06-10 09:22:28.000000000 -0300
++++ OpenSource_FDO/Utilities/SchemaMgr/Nls/Makefile.am	2009-06-10 09:22:56.000000000 -0300
+@@ -50,7 +50,7 @@
+ 	@echo "@$(FDO)/Unmanaged/Src/McToMsf/McToMsf $(basename $(notdir $<)).mc $(basename $(notdir $<)).msf \"*\" SmMessage "; \
+ 	$(FDO)/Unmanaged/Src/McToMsf/McToMsf $(basename $(notdir $<)).mc $(basename $(notdir $<)).msf "*" SmMessage 
+ 
+-INSTALL_DIR  = $(prefix)/nls
++INSTALL_DIR  = ${DESTDIR}/$(prefix)/nls
+ 
+ #install data
+ install :
+--- OpenSource_FDO/Providers/GenericRdbms/Docs/Makefile.am.orig	2009-06-10 09:24:06.000000000 -0300
++++ OpenSource_FDO/Providers/GenericRdbms/Docs/Makefile.am	2009-06-10 09:24:53.000000000 -0300
+@@ -25,7 +25,7 @@
+ 
+ #install doc files
+ install :
+-	@if [ ! -d $(prefix)/docs ]; then mkdir -p $(prefix)/docs; fi
+-	@if [ ! -d $(prefix)/docs/XmlSchema ]; then mkdir -p $(prefix)/docs/XmlSchema; fi
+-	@$(FDO)/Install/XsdInstallPaths/XsdInstallPaths ./XmlSchema $(prefix)/docs/XmlSchema/XmlSchema
++	@if [ ! -d $(prefix)/docs ]; then mkdir -p ${DESTDIR}/$(prefix)/docs; fi
++	@if [ ! -d $(prefix)/docs/XmlSchema ]; then mkdir -p ${DESTDIR}/$(prefix)/docs/XmlSchema; fi
++	@$(FDO)/Install/XsdInstallPaths/XsdInstallPaths ./XmlSchema ${DESTDIR}/$(prefix)/docs/XmlSchema/XmlSchema
+ 
+--- OpenSource_FDO/Providers/GDAL/Src/Message/Makefile.am.orig	2009-06-10 09:28:26.000000000 -0300
++++ OpenSource_FDO/Providers/GDAL/Src/Message/Makefile.am	2009-06-10 09:28:47.000000000 -0300
+@@ -50,7 +50,7 @@
+ %.msf : %.mc
+ 	$(FDO)/Unmanaged/Src/McToMsf/McToMsf $< $@ "*" GRFPMESSAGE
+ 
+-INSTALL_DIR  = $(DESTDIR)/$(prefix)/nls
++INSTALL_DIR  = ${DESTDIR}/$(prefix)/nls
+ 
+ install :
+ 	@if [ ! -d $(INSTALL_DIR) ]; then mkdir -p $(INSTALL_DIR); fi
+--- OpenSource_FDO/Providers/PostGIS/Src/Message/Makefile.am.orig	2009-06-10 09:28:47.000000000 -0300
++++ OpenSource_FDO/Providers/PostGIS/Src/Message/Makefile.am	2009-06-10 09:29:05.000000000 -0300
+@@ -54,7 +54,7 @@
+ %.msf : %.mc
+ 	../../../../Fdo/Unmanaged/Src/McToMsf/McToMsf $< $@ "*" POSTGISMESSAGE
+ 
+-INSTALL_DIR  = $(DESTDIR)/$(prefix)/nls
++INSTALL_DIR  = ${DESTDIR}/$(prefix)/nls
+ 
+ install :
+ 	@if [ ! -d $(INSTALL_DIR) ]; then mkdir -p $(INSTALL_DIR); fi
+--- OpenSource_FDO/Providers/SDF/Src/Message/Makefile.am.orig	2009-06-10 09:29:05.000000000 -0300
++++ OpenSource_FDO/Providers/SDF/Src/Message/Makefile.am	2009-06-10 09:29:19.000000000 -0300
+@@ -51,7 +51,7 @@
+ SDFMessage.msf : SDFMessage.mc
+ 	$(FDO)/Unmanaged/Src/McToMsf/McToMsf SDFMessage.mc SDFMessage.msf SDF
+ 
+-INSTALL_DIR  = $(prefix)/nls
++INSTALL_DIR  = ${DESTDIR}/$(prefix)/nls
+ 
+ #install data
+ install :
+--- OpenSource_FDO/Providers/SHP/Src/Message/Makefile.am.orig	2009-06-10 09:29:19.000000000 -0300
++++ OpenSource_FDO/Providers/SHP/Src/Message/Makefile.am	2009-06-10 09:29:29.000000000 -0300
+@@ -54,7 +54,7 @@
+ %.msf : %.mc
+ 	$(FDO)/Unmanaged/Src/McToMsf/McToMsf $< $@ "*" SHPMESSAGE
+ 
+-INSTALL_DIR  = $(prefix)/nls
++INSTALL_DIR  = ${DESTDIR}/$(prefix)/nls
+ 
+ #install data
+ install :
+--- OpenSource_FDO/Providers/WFS/Src/Message/Makefile.am.orig	2009-06-10 09:29:29.000000000 -0300
++++ OpenSource_FDO/Providers/WFS/Src/Message/Makefile.am	2009-06-10 09:29:45.000000000 -0300
+@@ -54,7 +54,7 @@
+ WFSMessage.msf : WFSMessage.mc
+ 	$(FDO)/Unmanaged/Src/McToMsf/McToMsf WFSMessage.mc WFSMessage.msf WFS
+ 
+-INSTALL_DIR  = $(prefix)/nls
++INSTALL_DIR  = ${DESTDIR}/$(prefix)/nls
+ 
+ #install data
+ install :
+--- OpenSource_FDO/Providers/WMS/Src/Message/Makefile.am.orig	2009-06-10 09:29:45.000000000 -0300
++++ OpenSource_FDO/Providers/WMS/Src/Message/Makefile.am	2009-06-10 09:29:55.000000000 -0300
+@@ -54,7 +54,7 @@
+ %.msf : %.mc
+ 	$(FDO)/Unmanaged/Src/McToMsf/McToMsf $< $@ "*" FDOWMSMESSAGE
+ 
+-INSTALL_DIR  = $(prefix)/nls
++INSTALL_DIR  = ${DESTDIR}/$(prefix)/nls
+ 
+ #install data
+ install :
+--- OpenSource_FDO/Providers/SDF/Inc/Makefile.am.orig	2009-06-10 09:31:28.000000000 -0300
++++ OpenSource_FDO/Providers/SDF/Inc/Makefile.am	2009-06-10 09:31:41.000000000 -0300
+@@ -24,7 +24,7 @@
+    SDF/IExtendedSelect.h \
+    SDF/IScrollableFeatureReader.h
+  
+-INSTALL_DIR  = $(includedir)
++INSTALL_DIR  = ${DESTDIR}/$(includedir)
+ 
+ #install header files
+ install :
+--- OpenSource_FDO/Providers/SHP/Inc/Makefile.am.orig	2009-06-10 09:31:41.000000000 -0300
++++ OpenSource_FDO/Providers/SHP/Inc/Makefile.am	2009-06-10 09:35:59.000000000 -0300
+@@ -27,7 +27,7 @@
+    SHP/Override/FdoShpPropertyDefinition.h \
+    SHP/Override/FdoShpPropertyDefinitionCollection.h
+ 
+-INSTALL_DIR  = $(includedir)
++INSTALL_DIR  = ${DESTDIR}/$(includedir)
+ 
+ #install header files
+ install :
+--- OpenSource_FDO/Providers/WMS/Inc/Makefile.am.orig	2009-06-10 09:35:59.000000000 -0300
++++ OpenSource_FDO/Providers/WMS/Inc/Makefile.am	2009-06-10 09:36:52.000000000 -0300
+@@ -33,7 +33,7 @@
+    WMS/Override/FdoWmsOvRasterDefinition.h \
+    WMS/Override/FdoWmsOvStyleDefinition.h
+ 
+-INSTALL_DIR  = $(includedir)
++INSTALL_DIR  = ${DESTDIR}/$(includedir)
+ 
+ #install header files
+ install :
